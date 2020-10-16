@@ -1,0 +1,39 @@
+---
+title: "Week 3 Assignment"
+author: "MsGret"
+date: "October 16, 2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R Markdown
+
+Based on the data set of a collection of cars (`mtcars`), we explore the relationship between a set of variables and miles per gallon (MPG). Load the data and perform some basic exploratory data analyses:
+
+```{r, comment=""}
+library (datasets)
+data(mtcars)
+str(mtcars)
+```
+
+
+## Plot 1
+
+```{r, warning=FALSE}
+suppressPackageStartupMessages(library(plotly))
+
+mtcars$am <- factor(mtcars$am, levels = c(0, 1), labels = c("automatic", "manual"))
+
+plot_ly(data = mtcars, x = ~wt, y = ~mpg, color = ~am, type="scatter", mode = "markers") %>%
+    layout(title = "Miles per gallon vs Weight by Transmission type", xaxis=list(title="Weight (1000 lbs)"), yaxis=list(title="Miles per gallon"))
+```
+
+## Plot 2
+
+```{r, warning=FALSE}
+plot_ly(data = mtcars, x = ~hp, y = ~mpg, color = ~as.factor(cyl), type="scatter", mode = "markers") %>%
+    layout(title = "Miles per gallon vs Gross horsepower by Number of cylinders", xaxis=list(title="Gross horsepower"), yaxis=list(title="Miles per gallon"))
+```
